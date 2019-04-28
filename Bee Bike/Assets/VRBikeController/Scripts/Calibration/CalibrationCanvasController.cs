@@ -9,7 +9,7 @@ public class CalibrationCanvasController : MonoBehaviour {
     public Slider LeftSlider;
     public Slider CenterSlider;
     public Slider calibratingSlider;
-    public Calibrate2 calibrationComponent;
+    public Calibrate calibrationComponent;
     public GazeTracker gazeClicker;
     public BoxCollider buttonCollider;
 
