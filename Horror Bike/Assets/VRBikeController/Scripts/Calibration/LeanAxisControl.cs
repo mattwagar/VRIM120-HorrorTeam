@@ -5,7 +5,10 @@ using UnityEngine;
 public class LeanAxisControl : MonoBehaviour {
 
     [Header("Control Transforms")]
-    public Transform left, right, center, root;
+    public Transform left;
+    public Transform right;
+    public Transform center;
+    public Transform root;
     public Transform handleBarTracker;
 
     [Header("Active Values")]
