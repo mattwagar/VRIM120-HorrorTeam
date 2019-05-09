@@ -8,17 +8,11 @@ public class SceneHandler : MonoBehaviour
     private bool sceneLoaded;
     private bool sceneUnloaded;
 
-    private IEnumerator LoadSceneRoutine(string currentScene, string sceneToLoad, LoadSceneMode mode)
+    private IEnumerator LoadSceneRoutine(string sceneToLoad, LoadSceneMode mode)
     {
-        yield return new WaitForSecondsRealtime(3f);
         SceneManager.LoadSceneAsync(sceneToLoad, mode);
         yield return new WaitUntil(() => sceneLoaded);
         sceneLoaded = false;
-
-        SceneManager.UnloadSceneAsync(currentScene);
-        yield return new WaitUntil(() => sceneUnloaded);
-        sceneUnloaded = false;
-        currentScene = sceneToLoad;
     }
 
     // Start is called before the first frame update
@@ -27,6 +21,7 @@ public class SceneHandler : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.sceneUnloaded += OnSceneUnloaded;
+        LoadScene("PlayerController");
     }
 
     // called second
@@ -42,19 +37,9 @@ public class SceneHandler : MonoBehaviour
         Debug.Log("SceneUnloaded: " + scene.name);
     }
 
-    public void LoadScene(string currentScene, string sceneToLoad, LoadSceneMode mode = LoadSceneMode.Additive)
+    public void LoadScene(string sceneToLoad, LoadSceneMode mode = LoadSceneMode.Additive)
     {
-        StartCoroutine(LoadSceneRoutine(currentScene, sceneToLoad, mode));
-    }
-
-    private void SetPlayerSpawn(string sceneName)
-    {
-
-    }
-
-    private void SetPlayerPosition(string newScene)
-    {
-
+        StartCoroutine(LoadSceneRoutine(sceneToLoad, mode));
     }
 
 }

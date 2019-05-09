@@ -21,6 +21,8 @@ public class BikeMovement : MonoBehaviour {
 
 	public float turnRate;
 
+	public float gravity;
+
 	public Vector3 curVelocity;
 
 	private Rigidbody bikeRigidBody;
@@ -82,13 +84,16 @@ public class BikeMovement : MonoBehaviour {
 		{
         	horizInput = leanAxisController.combinedAxis;
 		}
-        vertInput = Input.GetAxis("Vertical");
+        // Fixed input
+		//vertInput = Input.GetAxis("Vertical");
 
         handbrake = Input.GetAxis("Jump");
         Turn(horizInput);
         Accelerate(vertInput);
         Decelerate(handbrake);
 
+		//Apply gravity over time
+		bikeRigidBody.AddForce(Vector3.down * gravity * Time.deltaTime);
     }
 
 	//Increase speed in forward direction
