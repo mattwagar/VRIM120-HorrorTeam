@@ -7,7 +7,28 @@ public class NarrativeManager : MonoBehaviour
     public BikeMovement bikeMovement;
     public ClimaxAdjust climax;
     public int choiceValue;
-    public int speedModifier = 300;
+    public float speedModifier = 0.1f;
+
+    public bool encounterActive = false;
+
+    public Animator initialAnimation;
+
+    private IEnumerator InitialEncounterRoutine()
+    {
+        // initialAnimation.Play("Encounter");
+        bikeMovement.vertInput = 0;
+        while(bikeMovement.curVelocity.magnitude > .0001)
+        {
+            bikeMovement.handbrake = 0.2f;
+            yield return null;
+        }
+        Debug.Log("Waiting for encounter to end.");
+        yield return new WaitUntil(() => !encounterActive);
+        bikeMovement.vertInput = 2f;
+        yield return new WaitForSeconds(2);
+        bikeMovement.hasMinSpeed = true;
+        bikeMovement.vertInput = 1f;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -17,16 +38,22 @@ public class NarrativeManager : MonoBehaviour
 
     public void BadChoice()
     {
-        bikeMovement.vertInput -= speedModifier;
+        bikeMovement.vertInput = Mathf.Clamp01(bikeMovement.vertInput - speedModifier);
         choiceValue -= 1;
         climax.Adjust(choiceValue);
     }
 
     public void GoodChoice()
     {
-        bikeMovement.vertInput += speedModifier;
+        bikeMovement.vertInput = Mathf.Clamp01(bikeMovement.vertInput + speedModifier);
         choiceValue += 1;
         climax.Adjust(choiceValue);
+    }
+
+    public void InitialEncounter()
+    {
+        encounterActive = true;
+        StartCoroutine(InitialEncounterRoutine());
     }
 
 }

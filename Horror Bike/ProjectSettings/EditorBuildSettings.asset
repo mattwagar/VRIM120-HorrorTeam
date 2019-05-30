@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_SCENES/GrayboxEnvironment.unity
+    path: Assets/_SCENES/Environment.unity
     guid: 7eba0a58b18cabe47a9a82bb250624f1
   - enabled: 1
     path: Assets/_SCENES/PlayerController.unity

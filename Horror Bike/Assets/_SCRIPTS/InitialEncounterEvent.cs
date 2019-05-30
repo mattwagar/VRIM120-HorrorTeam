@@ -1,0 +1,15 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class InitialEncounterEvent : MonoBehaviour
+{
+    public NarrativeManager narrativeManager;
+
+    private void OnTriggerEnter(Collider other) 
+    {
+        if(other.gameObject.name == "Bike")
+            narrativeManager.InitialEncounter();
+    }
+
+}

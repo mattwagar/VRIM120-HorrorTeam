@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 /*
  * Original Author: Greg Kilmer
@@ -15,6 +16,7 @@ public class BikeMovement : MonoBehaviour {
 	public float accelerationRate;
 	public float decelerationRate;
 	public float topSpeed;
+	public float minSpeed;
     public LayerMask boostLayers;
 
 	public float leanRate;
@@ -31,10 +33,14 @@ public class BikeMovement : MonoBehaviour {
 
     public float horizInput, vertInput, handbrake;
 
+	public bool hasMinSpeed = false;
+
 	[Header("InEditorTesting")]
 	public bool keyboardControl = false;
 	public GameObject[] disableForTesting;
 	public GameObject[] disableForVR;
+	public TextMeshProUGUI Debug_BikeSpeed;
+	public TextMeshProUGUI Debug_DriftSpeed;
 
 	private void Awake() 
 	{
@@ -66,9 +72,17 @@ public class BikeMovement : MonoBehaviour {
 	{
         // Get throttle input
 		curVelocity = bikeRigidBody.velocity;
+		Vector3 locVel = transform.InverseTransformDirection(curVelocity);
+		Debug_BikeSpeed.text = "Speed: " + locVel.z;
+		Debug_DriftSpeed.text = "Drift Speed: " + locVel.x;
 		
 		//CubikeRigidBody Velocity to topSpeed
 		if (bikeRigidBody.velocity.magnitude >= topSpeed) 
+		{
+			bikeRigidBody.velocity = bikeRigidBody.velocity.normalized * topSpeed;
+		}
+
+		if (bikeRigidBody.velocity.magnitude <= minSpeed && hasMinSpeed) 
 		{
 			bikeRigidBody.velocity = bikeRigidBody.velocity.normalized * topSpeed;
 		}
@@ -88,9 +102,11 @@ public class BikeMovement : MonoBehaviour {
 		//vertInput = Input.GetAxis("Vertical");
 
         handbrake = Input.GetAxis("Jump");
-        Turn(horizInput);
+		if(curVelocity.sqrMagnitude > 1)
+        	Turn(horizInput);
         Accelerate(vertInput);
         Decelerate(handbrake);
+		// FixDrift();
 
 		//Apply gravity over time
 		bikeRigidBody.AddForce(Vector3.down * gravity * Time.deltaTime);
@@ -119,6 +135,23 @@ public class BikeMovement : MonoBehaviour {
 		if(input == 1 && bikeRigidBody.velocity.sqrMagnitude < 1)
 		{
 			bikeRigidBody.velocity = Vector3.zero;
+		}
+	}
+
+	public void FixDrift()
+	{
+		Vector3 locVel = transform.InverseTransformDirection(bikeRigidBody.velocity);
+		if(locVel.x > 1)
+		{
+			bikeRigidBody.AddForce(bike.transform.right * -decelerationRate * 2f * Time.deltaTime);
+		}
+		else if(locVel.x < -1)
+		{
+			bikeRigidBody.AddForce(bike.transform.right * decelerationRate * 2f * Time.deltaTime);
+		}
+		if(Mathf.Abs(locVel.x) < 1)
+		{
+			bikeRigidBody.velocity = new Vector3(0, bikeRigidBody.velocity.y, bikeRigidBody.velocity.z);
 		}
 	}
 

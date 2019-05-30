@@ -10,6 +10,6 @@ public class ClimaxAdjust : MonoBehaviour
     
     public void Adjust(int val)
     {
-        climaxSetpiece.transform.position = Vector3.Lerp(goodEnding.position, badEnding.position, (val/5f) + 0.5f);
+        climaxSetpiece.transform.position = Vector3.Lerp(badEnding.position, goodEnding.position, (val/5f) + 0.5f);
     }
 }
