@@ -32,7 +32,7 @@ public class DecisionCollisionHandler : MonoBehaviour
         {
             narrativeManager.GoodChoice();
             goodDec++;
-            Debug_BadDec.text = "Good Decisions: " + badDec;
+            Debug_GoodDec.text = "Good Decisions: " + goodDec;
         }
     }
 }

@@ -143,11 +143,11 @@ public class BikeMovement : MonoBehaviour {
 		Vector3 locVel = transform.InverseTransformDirection(bikeRigidBody.velocity);
 		if(locVel.x > 1)
 		{
-			bikeRigidBody.AddForce(bike.transform.right * -decelerationRate * 2f * Time.deltaTime);
+			bikeRigidBody.AddForce(bike.transform.right * -decelerationRate * 3f * Time.deltaTime);
 		}
 		else if(locVel.x < -1)
 		{
-			bikeRigidBody.AddForce(bike.transform.right * decelerationRate * 2f * Time.deltaTime);
+			bikeRigidBody.AddForce(bike.transform.right * decelerationRate * 3f * Time.deltaTime);
 		}
 		if(Mathf.Abs(locVel.x) < 1)
 		{
