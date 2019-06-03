@@ -5,6 +5,7 @@ using UnityEngine;
 public class NarrativeManager : MonoBehaviour
 {
     public BikeMovement bikeMovement;
+    public AudioManager audioManager;
     public ClimaxAdjust climax;
     public int choiceValue;
     public float speedModifier = 0.1f;
