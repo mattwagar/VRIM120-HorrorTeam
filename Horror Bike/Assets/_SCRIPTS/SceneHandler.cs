@@ -52,7 +52,7 @@ public class SceneHandler : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.sceneUnloaded += OnSceneUnloaded;
-        LoadScene("PlayerController");
+        LoadScene(environmentScene);
     }
 
     // called second
