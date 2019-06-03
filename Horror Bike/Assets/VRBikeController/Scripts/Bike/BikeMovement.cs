@@ -27,7 +27,8 @@ public class BikeMovement : MonoBehaviour {
 
 	public Vector3 curVelocity;
 
-	private Rigidbody bikeRigidBody;
+	[HideInInspector]
+	public Rigidbody bikeRigidBody;
 
 	public LeanAxisControl leanAxisController;
 
