@@ -196,17 +196,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SampleCount: 8
-  ScatteringCoef: 0.641
+  SampleCount: 5
+  ScatteringCoef: 0.901
   ExtinctionCoef: 0.0202
   SkyboxExtinctionCoef: 0.9
-  MieG: 0.1
+  MieG: 0.153
   HeightFog: 0
   HeightScale: 0.1
   GroundLevel: 0
-  Noise: 0
-  NoiseScale: 0.015
-  NoiseIntensity: 1
+  Noise: 1
+  NoiseScale: 0.1
+  NoiseIntensity: 2
   NoiseIntensityOffset: 0.3
   NoiseVelocity: {x: 3, y: 3}
   MaxRayLength: 400

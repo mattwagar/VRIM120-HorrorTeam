@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SetEncounterVal : MonoBehaviour
+public class SetEncounter : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public bool encounterVal = false;
+
+    public NarrativeManager narrativeManager;
+
+    private void OnTriggerEnter(Collider other) 
     {
-        
+        if(other.gameObject.name == "Bike")
+            narrativeManager.encounterActive = encounterVal;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
